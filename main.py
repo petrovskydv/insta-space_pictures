@@ -40,20 +40,38 @@ def fetch_spacex_launch():
         download_image(result_filepath, picture_link)
 
 
-def hubble():
-    response = requests.get('http://hubblesite.org/api/v3/image/1')
+def fetch_file_extension(file_link):
+    return file_link.split('/')[-1].split('.')[-1]
+
+
+def fetch_hubble_image(image_id, file_extension):
+    cafile = requests.certs.where()
+    response = requests.get(f'http://hubblesite.org/api/v3/image/{image_id}', verify=False)
     response.raise_for_status()
     review_result = response.json()
     image_details = review_result['image_files']
-    pprint(image_details)
-    for image in image_details:
-        pprint(image['file_url'].split('/')[-1])
+    file_link = image_details[-1]['file_url']
+
+    destination_path = 'images'
+    os.makedirs(destination_path, exist_ok=True)
+    file_name = f'{image_id}.{fetch_file_extension(file_link)}'
+    result_filepath = os.path.join(destination_path, file_name)
+
+
+
+    logger.info(f'download http:{file_link}')
+    logger.info(f'file path: {result_filepath}')
+    download_image(result_filepath, f'http:{file_link}')
+
+    # for image in image_details:
+    #     pprint(image['file_url'])
+    #     print(fetch_file_extension(image['file_url']))
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.ERROR, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     logger.setLevel(logging.INFO)
 
     # main()
     # fetch_spacex_launch()
-    hubble()
+    fetch_hubble_image(4781, 'jpg')
