@@ -37,8 +37,9 @@ def upload_images(folder_path, instagram_username, instagram_password):
     logger.info('bot start')
     bot.login(username=instagram_username, password=instagram_password)
 
-    images_path = glob.glob(folder_path + "/*.jpg")
+    images_path = glob.glob(f'{folder_path}/*.jpg')
     images_path = sorted(images_path)
     for image_path in images_path:
+        logger.info(f'uploading a file {image_path}')
         upload_result = bot.upload_photo(image_path, caption="Nice pic!")
         logger.info(f'upload result: {upload_result}')
