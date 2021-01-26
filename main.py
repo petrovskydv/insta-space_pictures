@@ -10,15 +10,10 @@ import fetch_spacex
 import upload
 
 PROCESSED_IMAGES_PATH = 'upload'
+SOURCE_PATH = 'images'
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-
-def fetch_file_path(file_name, source_path):
-    os.makedirs(source_path, exist_ok=True)
-    result_filepath = os.path.join(source_path, file_name)
-    return result_filepath
 
 
 def fetch_file_extension(file_link):
@@ -29,16 +24,15 @@ def download_image(file_name, url):
     response = requests.get(url, verify=False)
     response.raise_for_status()
 
-    source_path = 'images'
     result_file_name = f'{file_name}.{fetch_file_extension(url)}'
-    file_path = fetch_file_path(result_file_name, source_path)
+    file_path = os.path.join(SOURCE_PATH, result_file_name)
     with open(file_path, 'wb') as file:
         file.write(response.content)
     logger.info(f'download file: {file_path}')
 
     image = Image.open(file_path)
     image.thumbnail((1080, 1080))
-    image_path = fetch_file_path(f'{file_name}.jpg', PROCESSED_IMAGES_PATH)
+    image_path = os.path.join(PROCESSED_IMAGES_PATH, f'{file_name}.jpg')
     rgb_image = image.convert('RGB')
     rgb_image.save(image_path, format="JPEG")
     logger.info(f'save processed image: {image_path}')
@@ -53,6 +47,9 @@ def main():
     spacex_logger.setLevel(logging.INFO)
     upload_logger = logging.getLogger('upload')
     upload_logger.setLevel(logging.INFO)
+
+    os.makedirs(SOURCE_PATH, exist_ok=True)
+    os.makedirs(PROCESSED_IMAGES_PATH, exist_ok=True)
 
     urllib3.disable_warnings()
     fetch_spacex.fetch_spacex_launch()
