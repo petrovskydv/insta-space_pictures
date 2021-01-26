@@ -23,4 +23,5 @@ def fetch_hubble_image(image_id, source_path, processed_images_path):
     image_details = review_result['image_files']
     file_link = image_details[-1]['file_url']
     logger.info(f'download http:{file_link}')
-    utils.download_image(image_id, f'http:{file_link}', source_path, processed_images_path)
+    file_path = utils.download_image(image_id, f'http:{file_link}', source_path)
+    utils.save_jpg_image(file_path, processed_images_path)

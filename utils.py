@@ -10,7 +10,7 @@ from instabot import Bot
 logger = logging.getLogger(__name__)
 
 
-def download_image(file_name, url, source_path, processed_images_path):
+def download_image(file_name, url, source_path):
     response = requests.get(url, verify=False)
     response.raise_for_status()
 
@@ -19,9 +19,13 @@ def download_image(file_name, url, source_path, processed_images_path):
     with open(file_path, 'wb') as file:
         file.write(response.content)
     logger.info(f'download file: {file_path}')
+    return file_path
 
+
+def save_jpg_image(file_path, processed_images_path):
     image = Image.open(file_path)
     image.thumbnail((1080, 1080))
+    file_name = os.path.splitext(os.path.split(file_path)[-1])[0]
     image_path = os.path.join(processed_images_path, f'{file_name}.jpg')
     rgb_image = image.convert('RGB')
     rgb_image.save(image_path, format="JPEG")
