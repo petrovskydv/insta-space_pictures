@@ -2,6 +2,7 @@ import logging
 import os
 
 import urllib3
+from dotenv import load_dotenv
 
 import fetch_hubble
 import fetch_spacex
@@ -28,7 +29,11 @@ def main():
     urllib3.disable_warnings()
     fetch_spacex.fetch_spacex_launch(source_path, processed_images_path)
     fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path, processed_images_path)
-    utils.upload_images(processed_images_path)
+
+    load_dotenv()
+    instagram_username = os.getenv('INSTAGRAM_LOGIN')
+    instagram_password = os.getenv('INSTAGRAM_PASSWORD')
+    utils.upload_images(processed_images_path, instagram_username, instagram_password)
 
 
 if __name__ == '__main__':

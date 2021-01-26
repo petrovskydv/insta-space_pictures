@@ -4,7 +4,6 @@ import os
 
 import requests
 from PIL import Image
-from dotenv import load_dotenv
 from instabot import Bot
 
 logger = logging.getLogger(__name__)
@@ -32,11 +31,7 @@ def save_jpg_image(file_path, processed_images_path):
     logger.info(f'save processed image: {image_path}')
 
 
-def upload_images(folder_path):
-    load_dotenv()
-    instagram_username = os.getenv('INSTAGRAM_LOGIN')
-    instagram_password = os.getenv('INSTAGRAM_PASSWORD')
-
+def upload_images(folder_path, instagram_username, instagram_password):
     bot = Bot()
     bot.logger.setLevel(logging.ERROR)
     logger.info('bot start')
