@@ -4,7 +4,6 @@ import os
 
 import requests
 from PIL import Image
-from instabot import Bot
 
 logger = logging.getLogger(__name__)
 
