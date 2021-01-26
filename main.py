@@ -23,6 +23,7 @@ def main():
     urllib3.disable_warnings()
     fetch_spacex.fetch_spacex_launch(source_path, processed_images_path)
     fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path, processed_images_path)
+    utils.convert_files_to_jpg(source_path, processed_images_path)
 
     load_dotenv()
     instagram_username = os.getenv('INSTAGRAM_LOGIN')

@@ -17,17 +17,22 @@ def download_image(file_name, url, source_path):
     with open(file_path, 'wb') as file:
         file.write(response.content)
     logger.info(f'download file: {file_path}')
-    return file_path
 
 
-def save_jpg_image(file_path, processed_images_path):
-    image = Image.open(file_path)
-    image.thumbnail((1080, 1080))
-    file_name = os.path.splitext(os.path.split(file_path)[-1])[0]
-    image_path = os.path.join(processed_images_path, f'{file_name}.jpg')
-    rgb_image = image.convert('RGB')
-    rgb_image.save(image_path, format="JPEG")
-    logger.info(f'save processed image: {image_path}')
+def convert_files_to_jpg(source_path, processed_images_path):
+    images_path = glob.glob(f'{source_path}/*.*')
+    images_path = sorted(images_path)
+    for file_path in images_path:
+        if os.path.splitext(file_path)[-1] == '.REMOVE_ME':
+            continue
+        image = Image.open(file_path)
+        image.thumbnail((1080, 1080))
+        file_name = os.path.splitext(os.path.split(file_path)[-1])[0]
+        image_path = os.path.join(processed_images_path, f'{file_name}.jpg')
+        rgb_image = image.convert('RGB')
+        rgb_image.save(image_path, format="JPEG")
+        logger.info(f'save processed image: {image_path}')
+        os.rename(file_path, f'{file_path}.REMOVE_ME')
 
 
 def upload_images(bot, folder_path):

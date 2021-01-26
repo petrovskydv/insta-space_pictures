@@ -17,5 +17,4 @@ def fetch_spacex_launch(source_path, processed_images_path):
     for picture_number, picture_link in enumerate(picture_links):
         file_name = 'spacex{}'.format(picture_number)
         logger.info(f'download {picture_link}')
-        file_path = utils.download_image(file_name, picture_link, source_path)
-        utils.save_jpg_image(file_path, processed_images_path)
+        utils.download_image(file_name, picture_link, source_path)
