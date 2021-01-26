@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import fetch_hubble
 import fetch_spacex
 import utils
+from instabot import Bot
 
 
 def main():
@@ -20,13 +21,17 @@ def main():
     os.makedirs(source_path, exist_ok=True)
 
     urllib3.disable_warnings()
-    fetch_spacex.fetch_spacex_launch(source_path, processed_images_path)
-    fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path, processed_images_path)
+    # fetch_spacex.fetch_spacex_launch(source_path, processed_images_path)
+    # fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path, processed_images_path)
 
     load_dotenv()
     instagram_username = os.getenv('INSTAGRAM_LOGIN')
     instagram_password = os.getenv('INSTAGRAM_PASSWORD')
-    utils.upload_images(processed_images_path, instagram_username, instagram_password)
+
+    instagram_bot = Bot()
+    instagram_bot.logger.setLevel(logging.ERROR)
+    instagram_bot.login(username=instagram_username, password=instagram_password)
+    utils.upload_images(instagram_bot, processed_images_path)
 
 
 if __name__ == '__main__':

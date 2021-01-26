@@ -31,12 +31,8 @@ def save_jpg_image(file_path, processed_images_path):
     logger.info(f'save processed image: {image_path}')
 
 
-def upload_images(folder_path, instagram_username, instagram_password):
-    bot = Bot()
-    bot.logger.setLevel(logging.ERROR)
+def upload_images(bot, folder_path):
     logger.info('bot start')
-    bot.login(username=instagram_username, password=instagram_password)
-
     images_path = glob.glob(f'{folder_path}/*.jpg')
     images_path = sorted(images_path)
     for image_path in images_path:
