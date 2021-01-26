@@ -16,15 +16,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-def fetch_file_extension(file_link):
-    return file_link.split('/')[-1].split('.')[-1]
-
-
 def download_image(file_name, url):
     response = requests.get(url, verify=False)
     response.raise_for_status()
 
-    result_file_name = f'{file_name}.{fetch_file_extension(url)}'
+    result_file_name = f'{file_name}{os.path.splitext(url)[1]}'
     file_path = os.path.join(SOURCE_PATH, result_file_name)
     with open(file_path, 'wb') as file:
         file.write(response.content)
