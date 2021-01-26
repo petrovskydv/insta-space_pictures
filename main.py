@@ -10,14 +10,7 @@ import utils
 
 
 def main():
-    logging.basicConfig(level=logging.ERROR, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-
-    hubble_logger = logging.getLogger('fetch_hubble')
-    hubble_logger.setLevel(logging.INFO)
-    spacex_logger = logging.getLogger('fetch_spacex')
-    spacex_logger.setLevel(logging.INFO)
-    upload_logger = logging.getLogger('utils')
-    upload_logger.setLevel(logging.INFO)
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     processed_images_path = 'upload'
     source_path = 'images'
