@@ -1,6 +1,6 @@
 # Space Instagram
 
-This console utility can download photos from [SpaceX API](https://github.com/r-spacex/SpaceX-API) and [Hubble](http://hubblesite.org/api/documentation) and then post them on Instagram
+This console utility can download photos from [SpaceX API](https://github.com/r-spacex/SpaceX-API) and [Hubble](http://hubblesite.org/api/documentation) and then post them on Instagram.
 
 # How to install
 
@@ -28,4 +28,4 @@ The code is written for educational purposes on online-course for web-developers
 
 # License
 
-This project is licensed under the MIT License - see the LICENSE file for details
+This project is licensed under the MIT License - see the LICENSE file for details.
