@@ -20,9 +20,9 @@ def download_image(file_name, url, source_path):
 
 
 def convert_files_to_jpg(source_path, processed_images_path):
-    images_path = glob.glob(f'{source_path}/*.*')
-    images_path = sorted(images_path)
-    for file_path in images_path:
+    image_paths = glob.glob(f'{source_path}/*.*')
+    image_paths = sorted(image_paths)
+    for file_path in image_paths:
         if os.path.splitext(file_path)[-1] == '.REMOVE_ME':
             continue
         image = Image.open(file_path)
@@ -37,9 +37,9 @@ def convert_files_to_jpg(source_path, processed_images_path):
 
 def upload_images(bot, folder_path):
     logger.info('bot start')
-    images_path = glob.glob(f'{folder_path}/*.jpg')
-    images_path = sorted(images_path)
-    for image_path in images_path:
+    image_paths = glob.glob(f'{folder_path}/*.jpg')
+    image_paths = sorted(image_paths)
+    for image_path in image_paths:
         logger.info(f'uploading a file {image_path}')
         upload_result = bot.upload_photo(image_path, caption="Nice pic!")
         logger.info(f'upload result: {upload_result}')
