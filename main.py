@@ -16,14 +16,15 @@ def main():
     processed_images_path = 'upload'
     source_path = 'images'
     collection_name = 'spacecraft'
+    instagram_image_size = (1080, 1080)
 
     os.makedirs(processed_images_path, exist_ok=True)
     os.makedirs(source_path, exist_ok=True)
 
     urllib3.disable_warnings()
-    fetch_spacex.fetch_spacex_launch(source_path, processed_images_path)
-    fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path, processed_images_path)
-    utils.convert_files_to_jpg(source_path, processed_images_path)
+    fetch_spacex.fetch_spacex_launch(source_path)
+    fetch_hubble.fetch_hubble_images_from_collection(collection_name, source_path)
+    utils.convert_files_to_jpg(source_path, processed_images_path, instagram_image_size)
 
     load_dotenv()
     instagram_username = os.getenv('INSTAGRAM_LOGIN')

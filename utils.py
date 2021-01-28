@@ -19,14 +19,14 @@ def download_image(file_name, url, source_path):
     logger.info(f'download file: {file_path}')
 
 
-def convert_files_to_jpg(source_path, processed_images_path):
+def convert_files_to_jpg(source_path, processed_images_path, instagram_image_size):
     image_paths = glob.glob(f'{source_path}/*.*')
     image_paths = sorted(image_paths)
     for file_path in image_paths:
         if os.path.splitext(file_path)[-1] == '.REMOVE_ME':
             continue
         image = Image.open(file_path)
-        image.thumbnail((1080, 1080))
+        image.thumbnail(instagram_image_size)
         file_name = os.path.splitext(os.path.split(file_path)[-1])[0]
         image_path = os.path.join(processed_images_path, f'{file_name}.jpg')
         rgb_image = image.convert('RGB')
