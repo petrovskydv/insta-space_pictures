@@ -30,7 +30,7 @@ def convert_files_to_jpg(source_path, processed_images_path, instagram_image_siz
         file_name = os.path.splitext(os.path.split(file_path)[-1])[0]
         image_path = os.path.join(processed_images_path, f'{file_name}.jpg')
         rgb_image = image.convert('RGB')
-        rgb_image.save(image_path, format="JPEG")
+        rgb_image.save(image_path, format='JPEG')
         logger.info(f'save processed image: {image_path}')
         os.rename(file_path, f'{file_path}.REMOVE_ME')
 
