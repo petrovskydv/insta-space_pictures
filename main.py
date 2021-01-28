@@ -11,7 +11,7 @@ import utils
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     processed_images_path = 'upload'
     source_path = 'images'

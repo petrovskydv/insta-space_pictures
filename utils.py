@@ -41,5 +41,5 @@ def upload_images(bot, folder_path):
     image_paths = sorted(image_paths)
     for image_path in image_paths:
         logger.info(f'uploading a file {image_path}')
-        upload_result = bot.upload_photo(image_path, caption="Nice pic!")
+        upload_result = bot.upload_photo(image_path, caption='Nice pic!')
         logger.info(f'upload result: {upload_result}')
