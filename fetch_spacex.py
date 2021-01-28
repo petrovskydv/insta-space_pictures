@@ -7,9 +7,9 @@ import utils
 logger = logging.getLogger(__name__)
 
 
-def fetch_spacex_launch(source_path):
+def fetch_spacex_launch(source_path, launch_id):
     logger.info('download SpaceX images')
-    response = requests.get('https://api.spacexdata.com/v4/launches/5f8399fb818d8b59f5740d43')
+    response = requests.get(f'https://api.spacexdata.com/v4/launches/{launch_id}')
     response.raise_for_status()
     review_result = response.json()
     picture_links = review_result['links']['flickr']['original']
